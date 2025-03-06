@@ -1,19 +1,19 @@
 # Customer list
 
-- Bu proje, SQLite kullanılarak geliştirilen ve konsol üzerinde çalışan bir "müşteri listesi" uygulamasıdır.
+- Bu proje, SQLite kullanÄ±larak geliÅŸtirilen ve konsol Ã¼zerinde Ã§alÄ±ÅŸan bir "mÃ¼ÅŸteri listesi" uygulamasÄ±dÄ±r.
 
 ***
 
-- Proje için `System.Data.SQLite` paketi kullanılmıştır.
+- Proje iÃ§in `System.Data.SQLite` paketi kullanÄ±lmÄ±ÅŸtÄ±r.
 
-- Programda, CRUD işlemlerinin tamamı yapılabilmektedir.
+- Programda, CRUD iÅŸlemlerinin tamamÄ± yapÄ±labilmektedir.
 
-- Her ekleme sonrasında alfabatik sıralama yapılmakta olup, müşteri numaraları da bu sıralamaya göre güncellenmektedir.
+- Her ekleme sonrasÄ±nda alfabatik sÄ±ralama yapÄ±lmakta olup, mÃ¼ÅŸteri numaralarÄ± da bu sÄ±ralamaya gÃ¶re gÃ¼ncellenmektedir.
 
-- Alfabetik sıralamada büyük-küçük harf duyarlılığı (case-sensitivity) vardır. Bu nedenle, sisteme girilen tüm isimlerin büyük harfle başlaması gerekir.
+- Alfabetik sÄ±ralamada bÃ¼yÃ¼k-kÃ¼Ã§Ã¼k harf duyarlÄ±lÄ±ÄŸÄ± (case-sensitivity) vardÄ±r. Bu nedenle, sisteme girilen tÃ¼m isimlerin bÃ¼yÃ¼k harfle baÅŸlamasÄ± gerekir.
 
 ***
 
-# Düzeltilecek veya eklenecek özellikler
+# DÃ¼zeltilecek veya eklenecek Ã¶zellikler
 
-- Türkçe karakter kullanıldığında yaşanan sıralama sorunu düzeltilecek.
+- TÃ¼rkÃ§e karakter kullanÄ±ldÄ±ÄŸÄ±nda yaÅŸanan sÄ±ralama problemi giderilecek.
