@@ -4,13 +4,13 @@
 
 ***
 
-- Proje için `System.Data.SQLite` paketi kullanılmıştır.
-
 - Programda, CRUD işlemlerinin tamamı yapılabilmektedir.
 
 - Her ekleme sonrasında alfabatik sıralama yapılmakta olup, müşteri numaraları da bu sıralamaya göre güncellenmektedir.
 
 - Alfabetik sıralamada büyük-küçük harf duyarlılığı (case-sensitivity) vardır. Bu nedenle, sisteme girilen tüm isimlerin büyük harfle başlaması gerekir.
+
+- Proje için `System.Data.SQLite` paketi kullanılmıştır.
 
 ***
 

@@ -23,7 +23,7 @@ class Program
             string createTableQuery = @"
                 CREATE TABLE IF NOT EXISTS Users (
                     Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    SiraNo INTEGER,
+                    rowNumber INTEGER,
                     Name TEXT,
                     BirthYear TEXT,
                     Country TEXT
@@ -74,12 +74,12 @@ class Program
         }
     }
 
-    // Sıra numaralarını alfabetik sıraya göre güncelle
-    static void UpdateSiraNo(SQLiteConnection connection)
+    // Sıra numaralarını alfabetik sırayı baz alarak güncelle.
+    static void UpdateRowNumber(SQLiteConnection connection)
     {
         string updateQuery = @"
             UPDATE Users
-            SET SiraNo = (
+            SET rowNumber = (
                 SELECT COUNT(*)
                 FROM Users u2
                 WHERE u2.Name <= Users.Name
@@ -92,12 +92,12 @@ class Program
     }
 
     // "Değiştirme" veya "silme" işlemleri için "sıra numarası" kontrolü yap.
-    static bool CheckUserExists(SQLiteConnection connection, int siraNo)
+    static bool CheckUserExists(SQLiteConnection connection, int rowNumber)
     {
-        string checkQuery = "SELECT COUNT(*) FROM Users WHERE SiraNo = @SiraNo;";
+        string checkQuery = "SELECT COUNT(*) FROM Users WHERE rowNumber = @rowNumber;";
         using (var checkCommand = new SQLiteCommand(checkQuery, connection))
         {
-            checkCommand.Parameters.AddWithValue("@SiraNo", siraNo);
+            checkCommand.Parameters.AddWithValue("@rowNumber", rowNumber);
             int count = Convert.ToInt32(checkCommand.ExecuteScalar());
             return count > 0;
         }
@@ -106,7 +106,7 @@ class Program
     // Üye listesini göster.
     static void ViewList(SQLiteConnection connection)
     {
-        UpdateSiraNo(connection);
+        UpdateRowNumber(connection);
 
         Console.WriteLine("\nÜyelerin listesi:");
         Console.WriteLine();
@@ -121,7 +121,7 @@ class Program
             }
             while (reader.Read())
             {
-                Console.WriteLine($"{reader["SiraNo"]}. {reader["Name"]} - {reader["BirthYear"]} - {reader["Country"]}");
+                Console.WriteLine($"{reader["rowNumber"]}. {reader["Name"]} - {reader["BirthYear"]} - {reader["Country"]}");
             }
         }
     }
@@ -191,10 +191,10 @@ class Program
                 return;
             }
 
-            string deleteQuery = "DELETE FROM Users WHERE SiraNo = @SiraNo;";
+            string deleteQuery = "DELETE FROM Users WHERE rowNumber = @rowNumber;";
             using (var command = new SQLiteCommand(deleteQuery, connection))
             {
-                command.Parameters.AddWithValue("@SiraNo", rowNumber);
+                command.Parameters.AddWithValue("@rowNumber", rowNumber);
                 command.ExecuteNonQuery();
             }
 
@@ -235,7 +235,7 @@ class Program
                 }
             } while (!int.TryParse(birthYear, out year) || birthYear.Length != 4 || year < 1900 || year > 2050);
 
-            Console.Write("Yeni Ülke: ");
+            Console.Write("Yeni ülke: ");
             string country = Console.ReadLine() ?? "Bilinmiyor";
 
             string updateQuery = @"
@@ -243,11 +243,11 @@ class Program
                 SET Name = @Name,
                     BirthYear = @BirthYear,
                     Country = @Country
-                WHERE SiraNo = @SiraNo;
+                WHERE rowNumber = @rowNumber;
             ";
             using (var command = new SQLiteCommand(updateQuery, connection))
             {
-                command.Parameters.AddWithValue("@SiraNo", rowNumber);
+                command.Parameters.AddWithValue("@rowNumber", rowNumber);
                 command.Parameters.AddWithValue("@Name", name);
                 command.Parameters.AddWithValue("@BirthYear", birthYear);
                 command.Parameters.AddWithValue("@Country", country);
