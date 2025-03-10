@@ -23,7 +23,7 @@ class Program
             string createTableQuery = @"
                 CREATE TABLE IF NOT EXISTS Users (
                     Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    rowNumber INTEGER,
+                    RowNumber INTEGER,
                     Name TEXT,
                     BirthYear TEXT,
                     Country TEXT
@@ -79,7 +79,7 @@ class Program
     {
         string updateQuery = @"
             UPDATE Users
-            SET rowNumber = (
+            SET RowNumber = (
                 SELECT COUNT(*)
                 FROM Users u2
                 WHERE u2.Name <= Users.Name
@@ -94,10 +94,10 @@ class Program
     // "Değiştirme" veya "silme" işlemleri için "sıra numarası" kontrolü yap.
     static bool CheckUserExists(SQLiteConnection connection, int rowNumber)
     {
-        string checkQuery = "SELECT COUNT(*) FROM Users WHERE rowNumber = @rowNumber;";
+        string checkQuery = "SELECT COUNT(*) FROM Users WHERE RowNumber = @RowNumber;";
         using (var checkCommand = new SQLiteCommand(checkQuery, connection))
         {
-            checkCommand.Parameters.AddWithValue("@rowNumber", rowNumber);
+            checkCommand.Parameters.AddWithValue("@RowNumber", rowNumber);
             int count = Convert.ToInt32(checkCommand.ExecuteScalar());
             return count > 0;
         }
@@ -121,7 +121,7 @@ class Program
             }
             while (reader.Read())
             {
-                Console.WriteLine($"{reader["rowNumber"]}. {reader["Name"]} - {reader["BirthYear"]} - {reader["Country"]}");
+                Console.WriteLine($"{reader["RowNumber"]}. {reader["Name"]} - {reader["BirthYear"]} - {reader["Country"]}");
             }
         }
     }
@@ -191,10 +191,10 @@ class Program
                 return;
             }
 
-            string deleteQuery = "DELETE FROM Users WHERE rowNumber = @rowNumber;";
+            string deleteQuery = "DELETE FROM Users WHERE RowNumber = @RowNumber;";
             using (var command = new SQLiteCommand(deleteQuery, connection))
             {
-                command.Parameters.AddWithValue("@rowNumber", rowNumber);
+                command.Parameters.AddWithValue("@RowNumber", rowNumber);
                 command.ExecuteNonQuery();
             }
 
@@ -243,11 +243,11 @@ class Program
                 SET Name = @Name,
                     BirthYear = @BirthYear,
                     Country = @Country
-                WHERE rowNumber = @rowNumber;
+                WHERE RowNumber = @RowNumber;
             ";
             using (var command = new SQLiteCommand(updateQuery, connection))
             {
-                command.Parameters.AddWithValue("@rowNumber", rowNumber);
+                command.Parameters.AddWithValue("@RowNumber", rowNumber);
                 command.Parameters.AddWithValue("@Name", name);
                 command.Parameters.AddWithValue("@BirthYear", birthYear);
                 command.Parameters.AddWithValue("@Country", country);
