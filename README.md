@@ -13,6 +13,8 @@
 - Proje için `System.Data.SQLite` paketi kullanılmıştır.
 
 ***
+***
+***
 
 # Düzeltilecek veya eklenecek özellikler
 
